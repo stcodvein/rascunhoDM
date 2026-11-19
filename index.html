@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101d3c">
+  <title>Arquivo Celeste — uma experiência interativa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app" class="theme-blue">
+    <div class="grain"></div>
+    <header class="topbar">
+      <span class="brand">ARQUIVO CELESTE <i> / </i> 001</span>
+      <span id="chapter-indicator">PRÓLOGO</span>
+    </header>
+
+    <section id="screen-prologue" class="screen active">
+      <div class="eyebrow">UM REGISTRO EM TRÊS MOVIMENTOS</div>
+      <h1>Há coisas que<br><em>não cabem no silêncio.</em></h1>
+      <p class="lead">Algumas começam como um acidente cósmico. Outras sobrevivem nas palavras. Esta pequena experiência é um percurso por essas possibilidades.</p>
+      <div class="reference-strip">
+        <div class="ref-card ref-one"><span>01 / COSMOS</span><b>o improvável</b></div>
+        <div class="ref-card ref-two"><span>02 / PALAVRAS</span><b>o indizível</b></div>
+        <div class="ref-card ref-three"><span>03 / SOM</span><b>por descobrir</b></div>
+      </div>
+      <div class="manifesto">
+        <div class="eyebrow">ANTES DE COMEÇAR</div>
+        <ul>
+          <li>não existe pressa; explore cada etapa.</li>
+          <li>algumas respostas abrem caminhos.</li>
+          <li>o percurso termina quando você decidir chegar ao fim.</li>
+        </ul>
+      </div>
+      <button class="primary" data-go="level1">INICIAR EXPERIÊNCIA <span>↗</span></button>
+      <p class="micro">VOLUME 01 — UMA EXPERIÊNCIA INTERATIVA</p>
+    </section>
+
+    <section id="screen-level1" class="screen">
+      <div class="section-heading">
+        <div><div class="eyebrow">CAPÍTULO I / AZUL PROFUNDO</div><h2>Pequenos desastres<br><em>celestiais.</em></h2></div>
+        <div class="level-mark">I</div>
+      </div>
+      <p class="body-copy">Os cupidos perderam a rota. Afaste-os antes que atravessem o campo. Toque neles para disparar — ou use o mouse. No computador, também pode usar a barra de espaço.</p>
+      <div class="game-hud"><span>ALVOS <b id="score">0</b> / 12</span><span>VIDAS <b id="lives">3</b></span></div>
+      <div id="game-wrap">
+        <canvas id="game-canvas" width="720" height="440" aria-label="Jogo de disparar nos cupidos"></canvas>
+        <div id="game-overlay" class="game-overlay">
+          <b>PRONTO?</b><span>Toque em começar para defender o campo.</span>
+          <button id="start-game" class="primary small">COMEÇAR</button>
+        </div>
+      </div>
+      <div class="game-controls"><span>TOQUE NA ÁREA DE JOGO PARA DISPARAR</span><span>✦ ✦ ✦</span></div>
+      <button id="retry-game" class="text-button hidden">↻ TENTAR NOVAMENTE</button>
+    </section>
+
+    <section id="screen-interlude1" class="screen">
+      <div class="eyebrow">INTERLÚDIO I / MUDANÇA DE FREQUÊNCIA</div>
+      <div class="interlude-art"><span>✳</span><span>✦</span><span>✧</span></div>
+      <h2>Depois do ruído,<br><em>restam as palavras.</em></h2>
+      <p class="lead">Nem tudo se resolve com precisão. Há perguntas que pedem outro tipo de mira: atenção, memória e um pouco de interpretação.</p>
+      <blockquote>“A palavra é o meu domínio sobre o mundo.”<cite>— Clarice Lispector</cite></blockquote>
+      <button class="primary" data-go="level2">ATRAVESSAR PARA O CAPÍTULO II <span>↗</span></button>
+    </section>
+
+    <section id="screen-level2" class="screen">
+      <div class="section-heading">
+        <div><div class="eyebrow">CAPÍTULO II / ROXO PROFUNDO</div><h2>O peso das<br><em>palavras.</em></h2></div>
+        <div class="level-mark">II</div>
+      </div>
+      <p class="body-copy">Três pequenas etapas. Leia com atenção e escolha a alternativa que considerar correta. O resultado aparece ao final de cada fase.</p>
+      <div class="quiz-top"><span id="phase-label">FASE 01 — AUTORIA</span><span id="question-count">01 / 03</span></div>
+      <div class="progress"><div id="progress-fill"></div></div>
+      <article class="question-card">
+        <div class="eyebrow" id="question-kicker">IDENTIFIQUE A AUTORIA</div>
+        <h3 id="question-text">“Liberdade é pouco. O que eu desejo ainda não tem nome.”</h3>
+        <div id="answers" class="answers"></div>
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+        <button id="next-question" class="primary small" disabled>CONFIRMAR RESPOSTA</button>
+      </article>
+      <p class="micro">RESPOSTAS CERTAS: <b id="quiz-score">0</b></p>
+    </section>
+
+    <section id="screen-interlude2" class="screen">
+      <div class="eyebrow">INTERLÚDIO II / ÚLTIMA PASSAGEM</div>
+      <div class="interlude-art red-art"><span>♫</span><span>✦</span><span>◌</span></div>
+      <h2>Há coisas que<br><em>as palavras não alcançam.</em></h2>
+      <p class="lead">Você atravessou imagens, desvios e frases. O próximo capítulo pertence a outro território — o som. Por enquanto, esta porta fica entreaberta.</p>
+      <blockquote>FIM DO ESBOÇO DISPONÍVEL <cite>O capítulo musical ainda será definido.</cite></blockquote>
+      <button class="primary" id="finish-preview">ENCERRAR PRÉVIA <span>↗</span></button>
+      <button class="text-button" data-go="prologue">VOLTAR AO PRÓLOGO</button>
+    </section>
+
+    <section id="screen-ending" class="screen">
+      <div class="eyebrow">REGISTRO CONCLUÍDO / 002</div>
+      <h2>Até aqui,<br><em>o caminho foi seu.</em></h2>
+      <p class="lead">Esta é apenas a primeira versão. As imagens, os textos e os desafios ainda podem ser trocados e personalizados.</p>
+      <button class="primary" data-go="prologue">RECOMEÇAR <span>↻</span></button>
+    </section>
+    <footer><span>ARQUIVO CELESTE</span><span>FEITO DE CURIOSIDADE & CÓDIGO</span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
