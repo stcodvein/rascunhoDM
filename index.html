@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Odisseia das Três Esferas — Experiência Narrativa Interativa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="theme-blue">
+  <!-- Fundo Cósmico & Partículas Ambientais -->
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="vignette-overlay" aria-hidden="true"></div>
+
+  <!-- Cortina de Transição Cinematográfica entre Capítulos -->
+  <div id="chapter-transition" class="chapter-transition" aria-hidden="true">
+    <div class="transition-inner">
+      <span id="transition-roman" class="transition-roman">I</span>
+      <h2 id="transition-title" class="transition-title">O Firmamento dos Cupidos</h2>
+      <div class="transition-line"></div>
+    </div>
+  </div>
+
+  <!-- Barra Superior Discreta de Navegação / Progresso & Som -->
+  <header class="top-hud">
+    <div class="hud-brand">
+      <span class="hud-sigil">✦</span>
+      <span class="hud-name">ODISSEIA DAS TRÊS ESFERAS</span>
+    </div>
+
+    <nav class="chapter-stepper" aria-label="Progresso dos Capítulos">
+      <button class="step-pill active" data-target="screen-prologue" title="Prólogo">Prólogo</button>
+      <span class="step-connector"></span>
+      <button class="step-pill" data-target="screen-level1" title="Nível I: Cupidos">I · Cupidos</button>
+      <span class="step-connector"></span>
+      <button class="step-pill" data-target="screen-interlude1" title="Interlúdio I">Interlúdio I</button>
+      <span class="step-connector"></span>
+      <button class="step-pill" data-target="screen-level2" title="Nível II: Literatura">II · Literatura</button>
+      <span class="step-connector"></span>
+      <button class="step-pill" data-target="screen-interlude2" title="Interlúdio II">Interlúdio II</button>
+      <span class="step-connector"></span>
+      <button class="step-pill" data-target="screen-level3" title="Nível III: Música">III · Música</button>
+    </nav>
+
+    <button id="btn-audio-toggle" class="audio-toggle" aria-label="Alternar efeitos sonoros" title="Ativar/Desativar Som">
+      <span id="audio-icon">🔊</span>
+      <span class="audio-label">Som</span>
+    </button>
+  </header>
+
+  <main id="app-container">
+
+    <!-- =========================================================
+         0. PRÓLOGO — APRESENTAÇÃO INICIAL (AZUL-ESCURO CÓSMICO)
+         ========================================================= -->
+    <section id="screen-prologue" class="screen active" data-theme="theme-blue">
+      <div class="prologue-layout">
+        <!-- Coluna Visual & Astrolábio -->
+        <div class="prologue-visual-col">
+          <div class="astrolabe-frame">
+            <div class="orbit-ring ring-outer"></div>
+            <div class="orbit-ring ring-inner"></div>
+            <img src="assets/images/astrolabe.svg" alt="Astrolábio Celeste" class="astrolabe-art" />
+            <div class="celestial-badge">ARQUIVO ESTELAR · Nº 00</div>
+          </div>
+
+          <blockquote class="prologue-epigraph">
+            “Antes que o som ganhe forma e a palavra encontre abrigo no papel, tudo o que nos move nasce como um impulso silencioso entre as estrelas.”
+          </blockquote>
+        </div>
+
+        <!-- Coluna Narrativa & Arquivo de Relíquias -->
+        <div class="prologue-content-col">
+          <div class="chapter-kicker">PRÓLOGO · A TRAVESSIA DO FIRMAMENTO</div>
+          <h1 class="hero-title">As Três Constelações do Sentir</h1>
+
+          <div class="narrative-scroll">
+            <p>
+              Você acaba de cruzar o limiar do <strong>Observatório Submerso</strong>, um santuário suspenso entre a memória e o cosmos. Nesta jornada, cada esfera cromática guarda um fragmento essencial da experiência humana: o <em>impulso</em>, a <em>palavra</em> e a <em>ressonância</em>.
+            </p>
+            <p>
+              Para despertar o núcleo deste universo, será preciso atravessar três domínios distintos — começando pelo céu profundo onde mensageiros alados cruzam o horizonte em alta velocidade.
+            </p>
+          </div>
+
+          <!-- Arquivo / Coleção de Elementos Desbloqueáveis -->
+          <div class="relic-archive">
+            <div class="archive-header">
+              <span class="archive-title">✦ ARQUIVO DAS TRÊS ESFERAS</span>
+              <span class="archive-subtitle">Selecione um registro para inspecionar</span>
+            </div>
+
+            <div class="relic-tabs" role="tablist">
+              <button class="relic-tab active" data-relic="0">I. Flecha Astral</button>
+              <button class="relic-tab" data-relic="1">II. Códice Violeta</button>
+              <button class="relic-tab" data-relic="2">III. Lira Carmesim</button>
+            </div>
+
+            <div id="relic-display" class="relic-detail-box">
+              <div class="relic-meta">
+                <span id="relic-tag" class="relic-tag">DOMÍNIO AZUL-PROFUNDO · ATIVO</span>
+                <span id="relic-coords" class="relic-coords">ASCENSÃO 04h 12m</span>
+              </div>
+              <h3 id="relic-name" class="relic-name">Esfera I — O Impulso dos Cupidos</h3>
+              <p id="relic-desc" class="relic-desc">
+                No primeiro quadrante do céu noturno, sentinelas aladas cruzam as correntes estelares. Sua precisão determina se a centelha inicial será capturada antes que se dissipe no vácuo.
+              </p>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <button id="btn-start-level1" class="btn-primary btn-blue">
+              <span>Iniciar Capítulo I · Os Cupidos</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         1. NÍVEL I — CUPIDOS (ARCADE DEFESA ESTELAR - AZUL-ESCURO)
+         ========================================================= -->
+    <section id="screen-level1" class="screen" data-theme="theme-blue">
+      <div class="arcade-wrapper">
+        <!-- Painel Superior do Jogo -->
+        <div class="arcade-topbar">
+          <div class="arcade-stat">
+            <span class="stat-label">PONTUAÇÃO</span>
+            <span id="l1-score" class="stat-value">0</span>
+          </div>
+          <div class="arcade-stat">
+            <span class="stat-label">META DE VITÓRIA</span>
+            <span id="l1-target" class="stat-value">15 / 15</span>
+          </div>
+          <div class="arcade-stat">
+            <span class="stat-label">ESCUDO ESTELAR</span>
+            <span id="l1-lives" class="stat-value hearts">♥♥♥♥♥</span>
+          </div>
+        </div>
+
+        <!-- Arena Canvas Interativa -->
+        <div class="canvas-stage" id="l1-stage">
+          <canvas id="cupid-canvas"></canvas>
+
+          <!-- Overlay de Início do Nível I -->
+          <div id="l1-start-overlay" class="game-overlay active">
+            <div class="overlay-card blue-card">
+              <span class="overlay-badge">CAPÍTULO I · DEFESA CELESTE</span>
+              <h2>Chuva de Cupidos Astrais</h2>
+              <p>
+                Cupidos luminosos estão atravessando a nebulosa azul em diferentes velocidades e trajetórias. Mire e dispare feixes estelares para interceptar <strong>15 alvos</strong> antes que cinco escapem ou atinjam sua torre!
+              </p>
+              <div class="controls-hint">
+                <span><strong>Computador:</strong> Clique ou use ← → + Espaço</span>
+                <span><strong>Celular:</strong> Toque diretamente onde deseja atirar</span>
+              </div>
+              <button id="btn-l1-play" class="btn-primary btn-blue">
+                <span>Começar Interceptação</span>
+                <span class="btn-arrow">✦</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Overlay de Vitória / Derrota do Nível I -->
+          <div id="l1-end-overlay" class="game-overlay">
+            <div class="overlay-card blue-card">
+              <span id="l1-end-badge" class="overlay-badge">CONSTELAÇÃO DESPERTA</span>
+              <h2 id="l1-end-title">Céu Estabilizado!</h2>
+              <p id="l1-end-desc">
+                Você interceptou os mensageiros celestes com maestria. A energia azul-profunda começa a se transmutar em um crepúsculo violeta...
+              </p>
+              <div class="final-metrics">
+                <div class="metric-box">
+                  <span>Alvos Atingidos</span>
+                  <strong id="l1-final-hits">15</strong>
+                </div>
+                <div class="metric-box">
+                  <span>Pontuação Final</span>
+                  <strong id="l1-final-score">1500</strong>
+                </div>
+              </div>
+              <div class="overlay-actions">
+                <button id="btn-l1-retry" class="btn-secondary">Jogar Novamente</button>
+                <button id="btn-l1-next" class="btn-primary btn-blue">
+                  <span>Avançar para Interlúdio I</span>
+                  <span class="btn-arrow">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controles Táteis Auxiliares para Mobile/Teclado -->
+        <div class="mobile-controls-bar">
+          <button id="btn-touch-left" class="touch-pad-btn" aria-label="Girar à esquerda">◀</button>
+          <button id="btn-touch-fire" class="touch-pad-btn fire-btn" aria-label="Disparar">DISPARAR ✦</button>
+          <button id="btn-touch-right" class="touch-pad-btn" aria-label="Girar à direita">▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. INTERLÚDIO I — TRANSIÇÃO PARA O ROXO-ESCURO
+         ========================================================= -->
+    <section id="screen-interlude1" class="screen" data-theme="theme-purple">
+      <div class="interlude-container purple-atmosphere">
+        <div class="interlude-ornament">
+          <img src="assets/images/manuscript.svg" alt="Manuscrito Iluminado" class="interlude-art floating-slow" />
+        </div>
+
+        <div class="interlude-text-block">
+          <span class="chapter-kicker purple-kicker">INTERLÚDIO I · O CREPÚSCULO DAS PALAVRAS</span>
+          <h2 class="interlude-title">Quando as Estrelas Viram Tinta</h2>
+          <div class="divider-flourish purple-flourish"><span>❖</span></div>
+          <p class="interlude-lead">
+            As flechas luminosas se dissolvem no horizonte e o azul profundo do cosmos cede lugar à penumbra aveludada de uma biblioteca infinita.
+          </p>
+          <p class="interlude-body">
+            Aqui, cada constelação se transforma em verso, aforismo e memória escrita. Para atravessar o segundo domínio, não basta apenas reflexo — será preciso reconhecer as vozes que moldaram o pensamento humano e decifrar o sentido oculto nas entrelinhas.
+          </p>
+
+          <div class="interlude-quote-card">
+            <p>“As palavras têm peso, alma e temperatura; algumas iluminam o abismo, outras revelam quem realmente somos.”</p>
+          </div>
+
+          <button id="btn-start-level2" class="btn-primary btn-purple">
+            <span>Entrar no Capítulo II · Literatura</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. NÍVEL II — LITERATURA (3 FASES INTERATIVAS - ROXO-ESCURO)
+         ========================================================= -->
+    <section id="screen-level2" class="screen" data-theme="theme-purple">
+      <div class="lit-container">
+        <!-- Cabeçalho de Progresso das 3 Fases Literárias -->
+        <div class="lit-header">
+          <div class="lit-phase-tracker">
+            <div class="phase-node active" id="phase-node-1">
+              <span class="phase-num">I</span>
+              <span class="phase-label">A Voz e o Autor</span>
+            </div>
+            <div class="phase-line"></div>
+            <div class="phase-node" id="phase-node-2">
+              <span class="phase-num">II</span>
+              <span class="phase-label">Obras Imortais</span>
+            </div>
+            <div class="phase-line"></div>
+            <div class="phase-node" id="phase-node-3">
+              <span class="phase-num">III</span>
+              <span class="phase-label">Hermenêutica</span>
+            </div>
+          </div>
+
+          <div class="lit-score-pill">
+            <span>Sabedoria Acumulada:</span>
+            <strong id="l2-score">0 pts</strong>
+          </div>
+        </div>
+
+        <!-- Palco do Desafio Literário -->
+        <div id="lit-stage-card" class="lit-card">
+          <div class="lit-card-top">
+            <span id="lit-phase-badge" class="lit-badge">FASE I DE III · IDENTIFICAÇÃO DE AUTORIA</span>
+            <span id="lit-question-counter" class="lit-counter">Questão 1 de 6</span>
+          </div>
+
+          <div class="manuscript-excerpt">
+            <span class="quote-mark open">“</span>
+            <p id="lit-excerpt-text">Carregando fragmento literário...</p>
+            <span class="quote-mark close">”</span>
+          </div>
+
+          <h3 id="lit-prompt-text" class="lit-prompt">Quem escreveu este fragmento?</h3>
+
+          <div id="lit-options-grid" class="lit-options-grid">
+            <!-- Alternativas geradas dinamicamente via JS -->
+          </div>
+
+          <!-- Painel de Feedback Imediato -->
+          <div id="lit-feedback-box" class="lit-feedback hidden">
+            <div class="feedback-header">
+              <span id="lit-feedback-icon">✦</span>
+              <strong id="lit-feedback-title">Resposta Correta!</strong>
+            </div>
+            <p id="lit-feedback-text">Explicação literária detalhada.</p>
+            <button id="btn-lit-next" class="btn-primary btn-purple">
+              <span>Continuar Travessia</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tela de Conclusão do Nível II -->
+        <div id="lit-complete-card" class="lit-card lit-complete hidden">
+          <span class="lit-badge">CÂMARA LITERÁRIA CONCLUÍDA</span>
+          <h2>O Códice Violeta foi Decifrado</h2>
+          <p id="lit-final-summary">
+            Você atravessou as três camadas da palavra escrita — autoria, obra e interpretação profunda. Agora, o silêncio da biblioteca começa a vibrar com um pulso grave e carmesim...
+          </p>
+          <div class="final-metrics purple-metrics">
+            <div class="metric-box">
+              <span>Acertos</span>
+              <strong id="l2-final-hits">0 / 6</strong>
+            </div>
+            <div class="metric-box">
+              <span>Pontuação Literária</span>
+              <strong id="l2-final-score">0</strong>
+            </div>
+          </div>
+          <div class="overlay-actions">
+            <button id="btn-l2-retry" class="btn-secondary">Refazer Desafio</button>
+            <button id="btn-l2-next" class="btn-primary btn-purple">
+              <span>Avançar para Interlúdio II</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. INTERLÚDIO II — TRANSIÇÃO PARA O VERMELHO-ESCURO
+         ========================================================= -->
+    <section id="screen-interlude2" class="screen" data-theme="theme-crimson">
+      <div class="interlude-container crimson-atmosphere">
+        <div class="interlude-ornament">
+          <img src="assets/images/crimson-lyre.svg" alt="Lira Carmesim" class="interlude-art pulse-slow" />
+        </div>
+
+        <div class="interlude-text-block">
+          <span class="chapter-kicker crimson-kicker">INTERLÚDIO II · O PULSO CARMESIM</span>
+          <h2 class="interlude-title">Onde a Palavra Termina, Começa a Música</h2>
+          <div class="divider-flourish crimson-flourish"><span>❖</span></div>
+          <p class="interlude-lead">
+            As páginas do códice violeta se fecham lentamente. Do fundo da câmara, um calor profundo tinge as sombras de rubi e vinho escuro.
+          </p>
+          <p class="interlude-body">
+            O impulso celeste e o rigor da literatura convergem agora para a última esfera: o domínio da frequência, do ritmo e da emoção pura. Uma corda invisível vibra no centro do santuário, aguardando o momento de ser tocada.
+          </p>
+
+          <div class="interlude-quote-card crimson-quote">
+            <p>“A música expressa aquilo que não pode ser dito em palavras, mas sobre o qual é impossível permanecer em silêncio.”</p>
+          </div>
+
+          <button id="btn-start-level3" class="btn-primary btn-crimson">
+            <span>Contemplar Capítulo III · Música</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. NÍVEL III — MÚSICA (ESTRUTURA PREPARADA / EM CONSTRUÇÃO)
+         ========================================================= -->
+    <section id="screen-level3" class="screen" data-theme="theme-crimson">
+      <div class="sanctuary-l3-container">
+        <div class="sanctuary-seal">
+          <div class="seal-ring r1"></div>
+          <div class="seal-ring r2"></div>
+          <img src="assets/images/crimson-lyre.svg" alt="Selo da Esfera Musical" class="seal-icon" />
+        </div>
+
+        <span class="chapter-kicker crimson-kicker">CAPÍTULO III · ESFERA DA RESSONÂNCIA</span>
+        <h2 class="sanctuary-title">O Santuário da Música</h2>
+        <p class="sanctuary-subtitle">
+          A arquitetura visual e atmosférica do terceiro domínio está selada e pronta para receber sua mecânica musical futura.
+        </p>
+
+        <div class="sanctuary-status-box">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span>ESTRUTURA PREPARADA · AGUARDANDO PARTITURA</span>
+          </div>
+          <p>
+            Os capítulos anteriores (<strong>Prólogo</strong>, <strong>Nível I — Cupidos</strong>, <strong>Interlúdio I</strong>, <strong>Nível II — Literatura</strong> e <strong>Interlúdio II</strong>) já estão totalmente concluídos e integrados. Quando a mecânica sonora for definida, este palco abrigará o ato final da odisseia.
+          </p>
+        </div>
+
+        <div class="sanctuary-actions">
+          <button id="btn-restart-odyssey" class="btn-secondary crimson-outline">
+            ↺ Retornar ao Prólogo
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/audio.js"></script>
+  <script src="js/level1-cupids.js"></script>
+  <script src="js/level2-literature.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
